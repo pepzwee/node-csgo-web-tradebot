@@ -1,0 +1,158 @@
+body {
+    font-family: 'Source Sans Pro', sans-serif;
+    min-width: 1300px;
+    background: url(../img/bg.png) repeat;
+}
+#app {
+    margin-top: 60px;
+}
+hr {
+    opacity: 0.25;
+    border-bottom: 2px solid white;
+}
+.well-sm {
+    padding: 8px;
+    border-radius: 0;
+}
+.price, strong, b {
+    font-weight: 700;
+}
+.csgo-items {
+    width: 100%;
+    height: 300px;
+    overflow: auto;
+    display: block;
+}
+.csgo-items.high {
+    height: 420px;
+}
+.csgo-items .well {
+    border-radius: 0;
+    margin: 0;
+}
+.csgo-item {
+    width: 16.6666667%;
+    min-height: 80px;
+    background: rgba(0, 0, 0, .05);
+    float: left;
+    position: relative;
+    border-bottom: 1px solid rgba(0, 0, 0, .05);
+    border-right: 1px solid rgba(0, 0, 0, .05);
+}
+.csgo-item[disabled] {
+    pointer-events: none;
+    opacity: .75;
+}
+.csgo-item[disabled]:before {
+    content: '';
+    position: absolute;
+    left: 0; right: 0;
+    top: 0; bottom: 0;
+    background: rgba(0, 0, 0, .1);
+    z-index: 2;
+}
+.csgo-item:hover {
+    cursor: pointer;
+}
+.csgo-item:hover .csgo-item--bg {
+    background-size: 75%;
+}
+.csgo-item:hover .csgo-item--title {
+    visibility: visible;
+    z-index: 999;
+}
+.csgo-item--key {
+    background: rgba(223, 240, 216, .5);
+}
+.csgo-item--knife {
+    background: rgba(242, 222, 222, .5);
+}
+.csgo-item--rare_skin {
+    background: rgba(252, 248, 227, .5);
+}
+.csgo-item--weapon {
+    background: rgba(217, 237, 247, .5);
+}
+.csgo-item--bg {
+    position: absolute;
+    left: 0; top: 0; right: 0; bottom: 0;
+    background-position: center center;
+    background-size: 70%;
+    background-repeat: no-repeat;
+}
+.csgo-item--st {
+    position: absolute;
+    top: 5px; left: 5px;
+    color: orange;
+    font-weight: 700;
+    padding: 1px 3px;
+    z-index: 2;
+}
+.csgo-item--wear {
+    position: absolute;
+    top: 5px; right: 5px;
+    background: rgba(0, 0, 0, .1);
+    padding: 1px 3px;
+    z-index: 2;
+}
+.csgo-item--price {
+    position: absolute;
+    bottom: 5px; left: 10px; right: 0;
+    text-align: left;
+    font-size: 16px;
+    font-weight: 700;
+    z-index: 2;
+    text-shadow: 1px 0 0 #fff, -1px 0 0 #fff, 0 1px 0 #fff, 0 -1px 0 #fff, 1px 1px #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff;
+}
+.csgo-item--title {
+    visibility: hidden;
+    width: 100%;
+    bottom: 100%;
+    background: rgba(0, 0, 0, .8);
+    color: #fff;
+    font-size: 13px;
+    text-align: center;
+    padding: 1px 3px;
+    position: absolute;
+    z-index: 1;
+    pointer-events: none;
+}
+.csgo-item--title:after {
+    content: " ";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: rgba(0, 0, 0, .8) transparent transparent transparent;
+}
+.dropdown-menu a {
+    cursor: pointer;
+}
+.navbar {
+    border-radius: 0;
+}
+.has-avatar {
+    padding-left: 60px !important;
+}
+.img-avatar {
+    width: 32px;
+    border-radius: 999px;
+    position: absolute;
+    left: 15px;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+}
+
+.csgo-items .alert {
+    border-radius: 0;
+}
+
+footer.footer {
+    border-top-width: 1px;
+    border-top-style: solid;
+    padding: 15px 0;
+    width: 100%;
+}

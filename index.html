@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Web-based CS:GO Trading Bot</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script src="https://unpkg.com/vue@2.1.8/dist/vue.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/app.css?v=1">
+</head>
+<body>
+    <div id="app">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-5">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">
+                                <span><span class="well well-sm"><strong>Your offer</strong></span></span>
+                                <span class="price pull-right">
+                                    <span class="well well-sm">${{ userInventorySelectedValue.toFixed(2) }}</span>
+                                </span>
+                            </h3>
+                        </div>
+                        <div class="csgo-items">
+                            <div class="well text-center">
+                                <strong>&#9660; Select items below to remove them from the offer. &#9660;</strong>
+                            </div>
+                            <div class="csgo-item csgo-item--rare"
+                                :class="`csgo-item--${item.item_type.name}`"
+                                v-for="item in userInventory"
+                                v-if="userInventorySelected.indexOf(item.assetid) !== -1"
+                                v-on:click="removeItem('user', item.assetid, item.price)"
+                            >
+                                <div class="csgo-item--title">{{ item.data.market_hash_name }}</div>
+                                <div class="csgo-item--st" v-if="item.data.market_hash_name.indexOf('StatTrak') !== -1">ST</div>
+                                <div class="csgo-item--wear" v-if="item.item_wear">{{ item.item_wear }}</div>
+                                <div class="csgo-item--price">${{ item.price }}</div>
+                                <div class="csgo-item--bg" :style="`background-image:url(https://steamcommunity-a.akamaihd.net/economy/image/${item.data.image});`"></div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">
+                                <div class="form-inline text-right">
+                                    <a href="#" class="btn btn-default disabled pull-left">Your inventory</a>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Search For Items" v-on:keyup="searchInventory('user', $event.target.value)">
+                                        <div class="input-group">
+                                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Sort by
+                                                <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu dropdown-menu-right">
+                                                <li>
+                                                    <a v-on:click="setInventorySort('user', true)">Highest price</a>
+                                                </li>
+                                                <li>
+                                                    <a v-on:click="setInventorySort('user', false)">Lowest price</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </h3>
+                        </div>
+                        <div class="csgo-items high">
+                            <div class="well text-center">
+                                <strong>&#9660; Select items below to place them in the offer. &#9660;</strong>
+                            </div>
+                            <div v-if=" ! userInventory.error && userInventory.length">
+                                <div class="csgo-item csgo-item--rare"
+                                    :class="`csgo-item--${item.item_type.name}`"
+                                    v-for="item in userInventory"
+                                    v-if=" ! item.hidden && userInventorySelected.indexOf(item.assetid) === -1"
+                                    v-on:click="addItem('user', item.assetid, item.price)"
+                                    :disabled="item.price <= rates.ignore"
+                                >
+                                    <div class="csgo-item--title">{{ item.data.market_hash_name }}</div>
+                                    <div class="csgo-item--st" v-if="item.data.market_hash_name.indexOf('StatTrak') !== -1">ST</div>
+                                    <div class="csgo-item--wear" v-if="item.item_wear">{{ item.item_wear }}</div>
+                                    <div class="csgo-item--price" v-if="item.price > rates.ignore">${{ item.price }}</div>
+                                    <div class="csgo-item--price" v-else>Too low</div>
+                                    <div class="csgo-item--bg" :style="`background-image:url(https://steamcommunity-a.akamaihd.net/economy/image/${item.data.image});`"></div>
+                                </div>
+                            </div>
+                            <div v-else-if="userInventory.error">
+                                <div v-if="userInventory.error.statusCode == 403">
+                                    <div class="alert alert-danger" style="margin:0">
+                                        <strong>Your profile or inventory settings are set to private. We can't acquire the items of your CS:GO inventory.</strong>
+                                        <div><a href="http://steamcommunity.com/id/me/edit/settings" target="_blank">Change your Steam privacy settings here.</a> After that's done you can <a href="#">try reloading inventories</a>.</div>
+                                    </div>
+                                    <div class="alert alert-warning">
+                                        <strong>If you're certain your privacy settings are public please contact the administrator or try again later.</strong>
+                                        <div>Sometimes Steam has issues with its stability of the inventory servers. Make sure that Steam is not broken <a href="http://steamstat.us" target="_blank"><strong>here</strong></a>.</div>
+                                    </div>
+                                </div>
+                                <div v-else>
+                                    <div class="alert alert-danger">
+                                        <strong v-if="userInventory.error.error">{{ userInventory.error.error }}</strong>
+                                        <strong v-else>Something went wrong.. please try again!</strong>
+                                        <span v-if="userInventory.error.statusCode">({{ userInventory.error.statusCode }})</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div v-else-if=" ! user.steamID64">
+                                <div class="alert alert-info">Please authenticate to see your inventory.</div>
+                            </div>
+                            <div v-else>
+                                <div class="alert alert-info"><img src="/static/img/load.gif" alt="">Please wait..</div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+                <!--/.col-->
+                <div class="col-xs-2">
+                    <img src="/static/img/logo.png" class="img-responsive" alt="" style="margin-top: -42px;">
+                    <hr>
+                    <div v-if=" ! user">
+                        <div class="alert alert-info">
+                            <strong>You need to sign in before you can send trades.</strong>
+                        </div>
+                        <a href="/auth/steam">
+                            <img src="https://steamcommunity-a.akamaihd.net/public/images/signinthroughsteam/sits_01.png" class="img-responsive" alt="" style="margin:auto;">
+                        </a>
+                    </div>
+                    <div v-else>
+                        <nav class="navbar navbar-default">
+                            <div class="container-fluid">
+                                <div class="navbar-header">
+                                    <div class="navbar-brand">Welcome!</div>
+                                </div>
+                                <ul class="nav navbar-nav navbar-right">
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle has-avatar" data-toggle="dropdown">
+                                            <img class="img-responsive img-avatar" :src="user.photos[0].value" alt="Avatar"> {{ user.displayName }}
+                                            <span class="caret"></span>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="#" data-toggle="modal" data-target="#tradelink">Change tradelink</a></li>
+                                            <li role="separator" class="divider"></li>
+                                            <li><a href="/logout">Log out</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </nav>
+                        <hr>
+                        <a href="#" class="btn btn-primary btn-lg btn-block" v-if=" ! disableTrade" v-on:click="sendOffer">← Trade →</a>
+                        <a href="#" class="btn btn-danger btn-lg btn-block" disabled v-else>Not enough value</a>
+                    </div>
+                    <hr>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title text-center">Market Rates</h3>
+                        </div>
+                        <table class="table table-bordered table-condensed text-center">
+                            <tbody>
+                                <tr>
+                                    <td colspan="3">
+                                        <a href="#" data-toggle="modal" data-target="#percentages">What are these %'s'?</a>
+                                    </td>
+                                </tr>
+                                <tr class="success">
+                                    <td>{{ parseInt(rates.user.key * 100) }}%</td>
+                                    <td>Keys</td>
+                                    <td>{{ parseInt(rates.bot.key * 100) }}%</td>
+                                </tr>
+                                <tr class="danger">
+                                    <td>{{ parseInt(rates.user.knife * 100) }}%</td>
+                                    <td>Knives</td>
+                                    <td>{{ parseInt(rates.bot.knife * 100) }}%</td>
+                                </tr>
+                                <tr class="warning">
+                                    <td>{{ parseInt(rates.user.rare_skin * 100) }}%</td>
+                                    <td>Rare Skin</td>
+                                    <td>{{ parseInt(rates.bot.rare_skin * 100) }}%</td>
+                                </tr>
+                                <tr class="info">
+                                    <td>{{ parseInt(rates.user.weapon * 100) }}%</td>
+                                    <td>Weapons</td>
+                                    <td>{{ parseInt(rates.bot.weapon * 100) }}%</td>
+                                </tr>
+                                <tr class="active">
+                                    <td>{{ parseInt(rates.user.misc * 100) }}%</td>
+                                    <td>Misc</td>
+                                    <td>{{ parseInt(rates.bot.misc * 100) }}%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <hr>
+                    <a href="#" class="btn btn-success btn-lg btn-block" v-on:click="reloadInventories" v-if=" ! disableReload">Reload inventories</a>
+                    <a href="#" class="btn btn-danger btn-lg btn-block" disabled v-else>Reload inventories</a>
+                    <div class="text-center" style="margin-top: 36px;">
+                        <strong>{{ site.copyrights }}</strong>
+                        <div>Prices and inventory loading provided by <a href="https://steamapis.com" target="_blank">SteamApis.com</a></div>
+                    </div>
+                </div>
+                <!--/.col-->
+                <div class="col-xs-5">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">
+                                <span class="price">
+                                    <span class="well well-sm">${{ botInventorySelectedValue.toFixed(2) }}</span>
+                                </span>
+                                <span class="pull-right">
+                                    <span class="well well-sm"><strong>Bot's offer</strong></span>
+                                </span>
+                            </h3>
+                        </div>
+                        <div class="csgo-items">
+                            <div class="well text-center">
+                                <strong>&#9660; Select items below to remove them from the offer. &#9660;</strong>
+                            </div>
+                            <div class="csgo-item csgo-item--rare"
+                                :class="`csgo-item--${item.item_type.name}`"
+                                v-for="item in botInventory"
+                                v-if="botInventorySelected.indexOf(item.assetid) !== -1"
+                                v-on:click="removeItem('bot', item.bot, item.assetid, item.price)"
+                            >
+                                <div class="csgo-item--title">{{ item.data.market_hash_name }}</div>
+                                <div class="csgo-item--st" v-if="item.data.market_hash_name.indexOf('StatTrak') !== -1">ST</div>
+                                <div class="csgo-item--wear" v-if="item.item_wear">{{ item.item_wear }}</div>
+                                <div class="csgo-item--price">${{ item.price }}</div>
+                                <div class="csgo-item--bg" :style="`background-image:url(https://steamcommunity-a.akamaihd.net/economy/image/${item.data.image});`"></div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">
+                                <div class="form-inline text-right">
+                                    <div class="form-group pull-left">
+                                        <div class="input-group">
+                                            <div class="input-group-btn">
+                                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                                    <span class="caret"></span>
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <li>
+                                                        <a v-on:click="activeBot('All Bots')">All Bots</a>
+                                                    </li>
+                                                    <li class="divider"></li>
+                                                    <li>
+                                                        <a v-for="(bot, key) in botInventories" v-on:click="activeBot(key)" style="text-transform:capitalize;">{{ key.replace('_', ' ') }}</a>
+                                                    </li>
+                                                </ul>
+                                                <a href="#" class="btn btn-default disabled" style="text-transform:capitalize;">{{ selectedBot.replace('_', ' ') }}</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Search For Items" v-on:keyup="searchInventory('bot', $event.target.value)">
+                                        <div class="input-group">
+                                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Sort by
+                                                <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu dropdown-menu-right">
+                                                <li>
+                                                    <a v-on:click="setInventorySort('bot', true)">Highest price</a>
+                                                </li>
+                                                <li>
+                                                    <a v-on:click="setInventorySort('bot', false)">Lowest price</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </h3>
+                        </div>
+                        <div class="csgo-items high">
+                            <div class="well text-center">
+                                <strong>&#9660; Select items below to place them in the offer. &#9660;</strong>
+                            </div>
+                            <div v-if=" ! botInventory.error && botInventory.length">
+                                <div class="csgo-item csgo-item--rare"
+                                    :class="`csgo-item--${item.item_type.name}`"
+                                    v-for="item in botInventory"
+                                    v-if=" ! item.hidden && botInventorySelected.indexOf(item.assetid) === -1"
+                                    v-on:click="addItem('bot', item.bot, item.assetid, item.price)"
+                                    :disabled="item.price > (parseFloat(userInventorySelectedValue.toFixed(2)) - parseFloat(botInventorySelectedValue.toFixed(2)))"
+                                >
+                                    <div class="csgo-item--title">{{ item.data.market_hash_name }}</div>
+                                    <div class="csgo-item--st" v-if="item.data.market_hash_name.indexOf('StatTrak') !== -1">ST</div>
+                                    <div class="csgo-item--wear" v-if="item.item_wear">{{ item.item_wear }}</div>
+                                    <div class="csgo-item--price">${{ item.price }}</div>
+                                    <div class="csgo-item--bg" :style="`background-image:url(https://steamcommunity-a.akamaihd.net/economy/image/${item.data.image});`"></div>
+                                </div>
+                            </div>
+                            <div v-else-if="botInventory.error">
+                                <div v-if="botInventory.error.statusCode == 403">
+                                    <div class="alert alert-danger" style="margin:0">
+                                        <strong>This bots profile or inventory settings are set to private. We can't acquire the items of its CS:GO inventory.</strong>
+                                    </div>
+                                </div>
+                                <div v-else>
+                                    <div class="alert alert-danger">
+                                        <strong v-if="botInventory.error.error">{{ botInventory.error.error }}</strong>
+                                        <strong v-else>Something went wrong.. please try again!</strong>
+                                        <span v-if="botInventory.error.statusCode">({{ botInventory.error.statusCode }})</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div v-else>
+                                <div class="alert alert-info"><img src="/static/img/load.gif" alt="">Please wait..</div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--/.container-fluid-->
+
+        <div class="modal fade" id="percentages">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <h3>Price Calculation</h3>
+                        <p>We are trying to get the most accurate prices on the site by analysing the Steam Market. Combined with the Market Rates we can have a stable & varied inventory.</p>
+                        <h4>Example</h4>
+                        <p>Let's say that you have a knife. The Steam market price of that knife is estimated to $50 and we are giving you 90% of the market price(the Market Rate). The mathematics part is going to look like this:</p>
+                        <p class="text-center"><img src="https://i.imgur.com/HOrfH02.png" class="img-responsive" alt=""></p>
+                        <h3>Discounts</h3>
+                        <p>Can be combined (Souvenir worth below 0.5 dollar would have 2 discounts)</p>
+                        <h3>Unaccepted Items</h3>
+                        <ul>
+                            <li>'Too Low': Items worth a below 10 cents is rarely accepted.</li>
+                            <li>'Overstock': We have too many of the specific item.</li>
+                            <li>'Unaccepted': Usually means an unstable market value(Low sell volume / Jumping prices).</li>
+                            <li>'Too High': We don't accept this item because the price is too high price.</li>
+                        </ul>
+                        <h3>Our Cut</h3>
+                        <p>When trading items in the same type(knives to knives) the price will differ with 3-5%. We think this is fair, due to the fact that we are taking risk for every item we trade (values can crash). Also, we lay a lot of time on the bot and we are willing to get a little profit, since this is how trading works!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="tradelink">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <h3>Trade link</h3>
+                        <div class="alert alert-danger" v-if="invalidTradelink">
+                            <strong>Invalid tradelink!</strong>
+                        </div>
+                        <h4><a href="http://steamcommunity.com/id/me/tradeoffers/privacy#trade_offer_access_url" target="_blank">Where do I find this?</a></h4>
+                        <input type="text" class="form-control" v-model="user.tradelink">
+                        <hr style="opacity:0; margin: 7.5px 0;">
+                        <a class="btn btn-primary btn-lg" v-on:click="updateTradelink">Update</a>
+                        <hr>
+                        <p>By adding your Steam Trade url you make it possible for our bots to send you a trade offer without the need of adding you as a friend on steam.</p>
+                        <p>This is totally safe and no items can be traded before you have inspected and accepted the offer from your steam page.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="tradeoffer">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <h3>Trade status</h3>
+                        <div class="alert alert-info" v-if=" ! offerStatus.error && offerStatus.status != 3">
+                            <strong v-if="offerStatus.status == 4"><img src="/static/img/load.gif" alt=""> Validating requested trade..</strong>
+                            <strong v-if="offerStatus.status == 1"><img src="/static/img/load.gif" alt=""> Preparing to send offer..</strong>
+                            <strong v-if="offerStatus.status == 2"><img src="/static/img/load.gif" alt=""> Confirming sent offer..</strong>
+                        </div>
+                        <div v-else-if=" ! offerStatus.error && offerStatus.status == 3">
+                            <div class="alert alert-success">
+                                <strong>Requested trade has been sent successfully!
+                                    <a :href="`http://steamcommunity.com/tradeoffer/${offerStatus.offer}`" target="_blank">Click here to open the trade offer.</a>
+                                </strong>
+                            </div>
+                            <div class="alert alert-warning">This trade offer will expire in <strong>10 minutes</strong>.</div>
+                        </div>
+                        <div v-else>
+                            <strong v-if="offerStatus.error.code === 429">We are being rate-limited and could not send the offer. Please try again later.</strong>
+                            <strong v-else>{{ offerStatus.error }}</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.2/socket.io.min.js"></script>
+    <!-- GA -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-90308432-1', 'auto');
+    ga('send', 'pageview');
+    </script>
+    <!-- Website script -->
+    <script src="/static/js/app.js?v=17"></script>
+</body>
+</html>
