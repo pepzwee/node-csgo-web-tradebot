@@ -12,7 +12,7 @@ const FileStore = require('session-file-store')(session);
 const SteamStrategy = require('passport-steam').Strategy;
 // Site stuff
 const TradeBot = require('./lib/index');
-const Trade = new TradeBot();
+const Trade = new TradeBot({ io: io });
 const config = require('./config');
 // Web server
 server.listen(config.websitePort);
