@@ -5,7 +5,7 @@ I also suggest looking through the code to see how it works, and if you spot an 
 
 Live preview:
 
-* [http://csg0.trade](csg0.trade)
+* [http://csg0.trade](http://csg0.trade)
 
 # API Usage
 
