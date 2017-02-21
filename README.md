@@ -3,6 +3,10 @@
 This is a quickly coded website for people who want to see how these kind of websites work. Before you decide to use this script be aware, that this script, may have bugs.
 I also suggest looking through the code to see how it works, and if you spot an error make a pull request.
 
+Live preview:
+
+* [http://csg0.trade](csg0.trade)
+
 # API Usage
 
 ### Prices
