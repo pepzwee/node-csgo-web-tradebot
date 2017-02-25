@@ -173,7 +173,7 @@ io.on('connection', function(socket) {
                                 error: detailsError,
                                 status: false
                             })
-                        } else if(details.me.escrowDays > 0 || details.them.escrowDays > 0) {
+                        } else if(details.escrowDays > 0) {
                             socket.emit('offer status', {
                                 error: 'You must have 2FA enabled, we do not accept trades that go into Escrow.',
                                 status: false
