@@ -167,42 +167,56 @@ io.on('connection', function(socket) {
                         }));
                     }
                     offer.setMessage(config.tradeMessage);
-                    offer.send((err, status) => {
-                        if(err) {
+                    offer.getUserDetails((detailsError, details) => {
+                        if(detailserror) {
                             socket.emit('offer status', {
-                                error: err,
+                                error: detailsError,
                                 status: false
-                            });
+                            })
+                        } else if(details.me.escrowDays > 0 || details.them.escrowDays > 0) {
+                            socket.emit('offer status', {
+                                error: 'You must have 2FA enabled, we do not accept trades that go into Escrow.',
+                                status: false
+                            })
                         } else {
-                            console.log('[!!!!!] Sent a trade: ', data);
-                            if(status == 'pending') {
-                                socket.emit('offer status', {
-                                    error: null,
-                                    status: 2
-                                });
-                                Trade.botConfirmation(data.bot_id, offer.id, (err) => {
-                                    if( ! err) {
+                            offer.send((err, status) => {
+                                if(err) {
+                                    socket.emit('offer status', {
+                                        error: err,
+                                        status: false
+                                    });
+                                } else {
+                                    console.log('[!!!!!] Sent a trade: ', data);
+                                    if(status == 'pending') {
+                                        socket.emit('offer status', {
+                                            error: null,
+                                            status: 2
+                                        });
+                                        Trade.botConfirmation(data.bot_id, offer.id, (err) => {
+                                            if( ! err) {
+                                                socket.emit('offer status', {
+                                                    error: null,
+                                                    status: 3,
+                                                    offer: offer.id
+                                                });
+                                            } else {
+                                                socket.emit('offer status', {
+                                                    error: err,
+                                                    status: false
+                                                });
+                                            }
+                                        });
+                                    } else {
                                         socket.emit('offer status', {
                                             error: null,
                                             status: 3,
                                             offer: offer.id
                                         });
-                                    } else {
-                                        socket.emit('offer status', {
-                                            error: err,
-                                            status: false
-                                        });
                                     }
-                                });
-                            } else {
-                                socket.emit('offer status', {
-                                    error: null,
-                                    status: 3,
-                                    offer: offer.id
-                                });
-                            }
+                                }
+                            });
                         }
-                    });
+                    })
                 }
             });
         }
