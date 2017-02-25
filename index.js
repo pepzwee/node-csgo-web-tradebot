@@ -167,13 +167,13 @@ io.on('connection', function(socket) {
                         }));
                     }
                     offer.setMessage(config.tradeMessage);
-                    offer.getUserDetails((detailsError, details) => {
+                    offer.getUserDetails((detailsError, me, them) => {
                         if(detailsError) {
                             socket.emit('offer status', {
                                 error: detailsError,
                                 status: false
                             })
-                        } else if(details.escrowDays > 0) {
+                        } else if(me.escrowDays + them.escrowDays > 0) {
                             socket.emit('offer status', {
                                 error: 'You must have 2FA enabled, we do not accept trades that go into Escrow.',
                                 status: false
