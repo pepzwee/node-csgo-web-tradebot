@@ -168,7 +168,7 @@ io.on('connection', function(socket) {
                     }
                     offer.setMessage(config.tradeMessage);
                     offer.getUserDetails((detailsError, details) => {
-                        if(detailserror) {
+                        if(detailsError) {
                             socket.emit('offer status', {
                                 error: detailsError,
                                 status: false
