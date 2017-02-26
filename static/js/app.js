@@ -216,7 +216,6 @@ $(function() {
 
 
     var socket = io.connect();
-    socket.emit('get bots inv');
     socket.emit('get pricelist');
     socket.emit('get rates');
 
@@ -312,6 +311,8 @@ $(function() {
     });
     socket.on('pricelist', function(prices) {
         app.priceList = Object.assign({}, app.priceList, prices);
+
+        socket.emit('get bots inv');
     });
     socket.on('rates', function(rates) {
         app.rates = Object.assign({}, app.rates, rates);
