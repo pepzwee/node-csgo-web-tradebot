@@ -279,7 +279,13 @@ $(function() {
 
     socket.on('bots inv', function(items) {
         app.disableReload = false;
-        app.botInventories = Object.assign({}, items);
+        // Order items object by key name
+        const ordered = {};
+        Object.keys(items).sort().forEach((key) => {
+            ordered[key] = items[key];
+        });
+        // Assign ordered object to botInventories
+        app.botInventories = Object.assign({}, ordered);
 
         var botInventory = [];
         var error = false;
