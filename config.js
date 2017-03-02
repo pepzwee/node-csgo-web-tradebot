@@ -19,15 +19,20 @@ module.exports = {
             "personaName": "csg0.trade - Bot #2"
         }
     },
+    // Your Steam API key, get it here: https://steamcommunity.com/dev/apikey
     steamApiKey: '',
     site: {
         header: 'CSG0.Trade',
         steamGroup: '#',
         copyrights: 'Copyright © csg0.trade 2016'
     },
+    // Domain name only, follow the example (no http:// & no www & no /)
     domain: 'csg0.trade',
+    // Website URL, follow the example (do not add / at the end)
     website: 'http://csg0.trade',
+    // Website PORT, don't change it unless you're using a reverse proxy
     websitePort: 80,
+    // Quite obvious
     tradeMessage: 'Trade offer from csg0.trade | If you did not request this offer or the offer looks invalid please decline.',
     rates: {
         ignoreItemsBelow: 0.05, // Ignore items below this price (price * rate < ignoreItemsBelow)
