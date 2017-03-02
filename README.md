@@ -1,5 +1,10 @@
 # Web Based Trading Bot for CS:GO
 
+[![dependencies](https://img.shields.io/david/pepzwee/node-csgo-web-tradebot.svg)](https://github.com/pepzwee/node-csgo-web-tradebot)
+[![npm](https://img.shields.io/npm/l/express.svg?style=flat-square)](https://github.com/pepzwee/node-csgo-web-tradebot/blob/master/LICENSE)
+[![steam](https://img.shields.io/badge/steam-donate-green.svg?style=flat-square)](https://steamcommunity.com/tradeoffer/new/?partner=78261062&token=2_WUiltH)
+[![paypal](https://img.shields.io/badge/paypal-donate-yellow.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=XKPQ3TWDYJ2Z6)
+
 This is a quickly coded website for people who want to see how these kind of websites work. Before you decide to use this script be aware, that this script, may have bugs.
 I also suggest looking through the code to see how it works, and if you spot an error make a pull request.
 
