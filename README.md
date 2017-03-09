@@ -25,6 +25,10 @@ The script gets its prices from two sources. If you don't feel comfortable with 
 
 To avoid Steam rate-limits all inventories are loaded through SteamApis.com inventory proxy. It utilizes thousands of proxies to maintain a high success rate.
 
+### SteamApis.com
+
+SteamApis is a paid service. You can get the API key at https://steamapis.com
+
 # Support and Development
 
 ### Development

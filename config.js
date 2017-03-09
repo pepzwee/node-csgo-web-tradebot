@@ -21,6 +21,8 @@ module.exports = {
     },
     // Your Steam API key, get it here: https://steamcommunity.com/dev/apikey
     steamApiKey: '',
+    // Your SteamApis.com key, get it here: https://steamapis.com
+    SteamApisKey: '',
     site: {
         header: 'CSG0.Trade',
         steamGroup: '#',
