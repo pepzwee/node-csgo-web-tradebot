@@ -29,6 +29,11 @@ To avoid Steam rate-limits all inventories are loaded through SteamApis.com inve
 
 SteamApis is a paid service. You can get the API key at https://steamapis.com
 
+**You need to enable these endpoints in the Upgrade page:**
+
+- `market/items`
+- `steam/inventory`
+
 # Support and Development
 
 ### Development
