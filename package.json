@@ -23,5 +23,10 @@
     "steam-user": "^3.15.0",
     "steamcommunity": "^3.30.3",
     "util": "^0.10.3"
+  },
+  "devDependencies": {
+    "eslint": "^3.17.1",
+    "eslint-config-airbnb-base": "^11.1.1",
+    "eslint-plugin-import": "^2.2.0"
   }
 }

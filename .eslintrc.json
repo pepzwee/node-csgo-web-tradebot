@@ -1,0 +1,34 @@
+{
+    "extends": "airbnb-base",
+    "plugins": [
+        "import"
+    ],
+    "env": {
+        "browser": true,
+        "commonjs": true,
+        "es6": true,
+        "node": true
+    },
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "sourceType": "script"
+    },
+    "rules": {
+        "indent": [
+            "error",
+            4
+        ],
+        "semi": [
+            "error",
+            "never"
+        ],
+        "linebreak-style": [
+            "error",
+            "windows"
+        ],
+        "no-console": 0,
+        "max-len": ["error", 120]
+    }
+}
