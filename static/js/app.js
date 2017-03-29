@@ -75,14 +75,10 @@ $(function() {
                     assetid = id;
                 }
                 if(who == 'bot') {
-                    var botInventorySelected = this.botInventorySelected;
-                    delete botInventorySelected[botInventorySelected.indexOf(assetid)];
-                    this.botInventorySelected = botInventorySelected;
+                    this.botInventorySelected.splice($.inArray(assetid, this.botInventorySelected),1);
                     this.botInventorySelectedValue -= price;
                 } else {
-                    var userInventorySelected = this.userInventorySelected;
-                    delete userInventorySelected[userInventorySelected.indexOf(assetid)];
-                    this.userInventorySelected = userInventorySelected;
+                    this.userInventorySelected.splice($.inArray(assetid, this.userInventorySelected),1);
                     this.userInventorySelectedValue -= price;
                     if(this.userInventorySelectedValue <= 0) {
                         this.userInventorySelectedValue = 0;
