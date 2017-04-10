@@ -6,7 +6,9 @@ module.exports = {
             siteName: 'Bot 1',
             accountName: '',
             password: '',
+            // shared_secret value
             twoFactorCode: '',
+            // identity_secret value
             identitySecret: '',
             steamID64: '',
             personaName: 'CSG0.Trade BOT #1',
