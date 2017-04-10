@@ -43,3 +43,7 @@ I don't plan on adding any additional features. But feel free to add them yourse
 ### Support
 
 Keep in mind this project is free and open-source. Don't expect support to be good and fast.
+
+### Contributors
+
+You can view the [people who have helped with this project here.](https://github.com/pepzwee/node-csgo-web-tradebot/graphs/contributors)
