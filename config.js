@@ -3,7 +3,7 @@
 module.exports = {
     bots: {
         bot_1: {
-            siteName: 'Bot 1',  // Website name - e.g. csg0.trade
+            siteName: 'Bot 1',  // Will be displayed under the "All bots" tab e.g. "Keys Only"
             accountName: '',    // bot_1 username
             password: '',       // bot_1  password
             twoFactorCode: '',  // shared_secret value
@@ -15,12 +15,12 @@ module.exports = {
     steamApiKey: '',    // Your Steam API key, get it here: https://steamcommunity.com/dev/apikey
     SteamApisKey: '',   // Your SteamApis.com key, get it here: https://steamapis.com
     site: {
-        header: 'CSG0.Trade', // Domain name only, follow the example (no http:// & no www & no /)
+        header: 'CSG0.Trade', // Name/header/title of website. Prefix for  <title></title> (For more: /index.html line: 9) 
         steamGroup: '#',
-        copyrights: 'Copyright © csg0.trade 2016',  // Copyright text
+        copyrights: 'Copyright © csg0.trade 2017',  // Copyright text
     },
-    domain: 'localhost',    // Domain name only, follow the example (no http:// & no www & no /)
-    website: 'http://localhost',    // Website URL, follow the example (do not add / at the end)
+    domain: 'example.com',    // Domain name only, follow the example (no http:// & no www & no /)
+    website: 'http://example.com',    // Website URL, follow the example (do not add / at the end)
     websitePort: 80,    // Website PORT, don't change it unless you're using a reverse proxy
     tradeMessage: 'Trade offer from csg0.trade | If you did not request this offer or the offer looks invalid please decline.', // Quite obvious
     rates: {
