@@ -3,39 +3,29 @@
 module.exports = {
     bots: {
         bot_1: {
-            siteName: 'Bot 1',
-            accountName: '',
-            password: '',
-            // shared_secret value
-            twoFactorCode: '',
-            // identity_secret value
-            identitySecret: '',
-            steamID64: '',
-            personaName: 'CSG0.Trade BOT #1',
+            siteName: 'Bot 1',  // Website name - e.g. csg0.trade
+            accountName: '',    // bot_1 username
+            password: '',       // bot_1  password
+            twoFactorCode: '',  // shared_secret value
+            identitySecret: '', // identity_secret value
+            steamID64: '',  // SteamID64 of bot account can be found here: "https://steamid.io/"
+            personaName: 'CSG0.Trade BOT #1',   // Nickname for bot account, will change on restart
         },
     },
-    // Your Steam API key, get it here: https://steamcommunity.com/dev/apikey
-    steamApiKey: '',
-    // Your SteamApis.com key, get it here: https://steamapis.com
-    SteamApisKey: '',
+    steamApiKey: '',    // Your Steam API key, get it here: https://steamcommunity.com/dev/apikey
+    SteamApisKey: '',   // Your SteamApis.com key, get it here: https://steamapis.com
     site: {
-        header: 'CSG0.Trade',
+        header: 'CSG0.Trade', // Domain name only, follow the example (no http:// & no www & no /)
         steamGroup: '#',
-        copyrights: 'Copyright © csg0.trade 2016',
+        copyrights: 'Copyright © csg0.trade 2016',  // Copyright text
     },
-    // Domain name only, follow the example (no http:// & no www & no /)
-    domain: 'localhost',
-    // Website URL, follow the example (do not add / at the end)
-    website: 'http://localhost',
-    // Website PORT, don't change it unless you're using a reverse proxy
-    websitePort: 80,
-    // Quite obvious
-    tradeMessage: 'Trade offer from csg0.trade | If you did not request this offer or the offer looks invalid please decline.',
+    domain: 'localhost',    // Domain name only, follow the example (no http:// & no www & no /)
+    website: 'http://localhost',    // Website URL, follow the example (do not add / at the end)
+    websitePort: 80,    // Website PORT, don't change it unless you're using a reverse proxy
+    tradeMessage: 'Trade offer from csg0.trade | If you did not request this offer or the offer looks invalid please decline.', // Quite obvious
     rates: {
-        // Ignore items below this price (price * rate < ignoreItemsBelow) - shows (Too Low) for user
-        ignoreItemsBelow: 0.05,
-        // Items below this price are considered trash, the trash rate modifier will be applied
-        trashPriceBelow: 0.2,
+        ignoreItemsBelow: 0.05, // Ignore items below this price (price * rate < ignoreItemsBelow) - shows (Too Low) for user
+        trashPriceBelow: 0.2,   // Items below this price are considered trash, the trash rate modifier will be applied
         // Items
         user: {
             key: 1,
