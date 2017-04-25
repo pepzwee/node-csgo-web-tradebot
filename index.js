@@ -10,7 +10,6 @@ const passport = require('passport')
 
 const session = require('express-session')
 const sharedsession = require('express-socket.io-session')
-const FileStore = require('session-file-store')(session)
 const SteamStrategy = require('passport-steam').Strategy
 // Site stuff
 const TradeBot = require('./lib/index')
@@ -41,7 +40,6 @@ passport.use(new SteamStrategy({
     })
 }))
 const sessionMiddleware = session({
-    store: new FileStore(),
     secret: 'csg0tradebot',
     name: 'csg0trade',
     resave: true,
