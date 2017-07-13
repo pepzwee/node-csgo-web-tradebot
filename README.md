@@ -21,7 +21,7 @@ The script gets its prices from two sources. If you don't feel comfortable with 
 1. CSGOFast API for it's high tier items, anything that's not high tier will be ignored.*
 2. SteamApis.com API for market tier items, using the `safe_price` values provided by it.
 
-* - SteamApis provides high tier items as well. CSGOFast is a backup for any missed items if any.
+<pre>* SteamApis provides high tier items as well. CSGOFast is a backup for any missed items if any.</pre>
 
 ### Inventory
 
