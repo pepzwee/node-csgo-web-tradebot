@@ -5,6 +5,8 @@
 [![steam](https://img.shields.io/badge/steam-donate-green.svg?style=flat-square)](https://steamcommunity.com/tradeoffer/new/?partner=78261062&token=2_WUiltH)
 [![paypal](https://img.shields.io/badge/paypal-donate-yellow.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=XKPQ3TWDYJ2Z6)
 
+### Do not add PEPZ on Steam. If you have a question or need help, look through "Issues" and create a new issue if you can't find an answer.
+
 This is a quickly coded website for people who want to see how these kind of websites work. Before you decide to use this script be aware, that this script, may have bugs.
 I also suggest looking through the code to see how it works, and if you spot an error make a pull request.
 
