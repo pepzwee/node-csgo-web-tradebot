@@ -104,7 +104,11 @@ $(function() {
                             for(var y in bot.items) {
                                 var item = bot.items[y];
                                 item.bot = i;
-                                item.price = this.priceList[item.data.market_hash_name];
+                                if(app.priceList[item.data.market_hash_name] <= app.rates.trash) {
+                                    item.price = (app.priceList[item.data.market_hash_name] * app.rates.bot['trash']).toFixed(2);
+                                } else {
+                                    item.price = (app.priceList[item.data.market_hash_name] * app.rates.bot[item.item_type.name]).toFixed(2);
+                                }
                                 botInventory.push(item);
                             }
                         }
