@@ -18,12 +18,11 @@ Live preview:
 
 ### Prices
 
-The script gets its prices from two sources. If you don't feel comfortable with any of the API's this script uses, feel free to change them to your preferred one.
+The script gets its prices from SteamApis. If you don't feel comfortable with any of the API's this script uses, feel free to change them to your preferred one.
 
-1. CSGOFast API for it's high tier items, anything that's not high tier will be ignored.*
-2. SteamApis.com API for market tier items, using the `safe_price` values provided by it.
+1. SteamApis.com API for market tier items, using the `safe_price` values provided by it.
 
-<pre>* SteamApis provides high tier items as well. CSGOFast is a backup for any missed items if any.</pre>
+<pre>* SteamApis provides high tier items as well.</pre>
 
 ### Inventory
 
@@ -50,4 +49,5 @@ Keep in mind this project is free and open-source. Don't expect support to be go
 
 ### Contributors
 
+Author: [PEPZ](https://pepzwee.com)
 You can view the [people who have helped with this project here.](https://github.com/pepzwee/node-csgo-web-tradebot/graphs/contributors)
