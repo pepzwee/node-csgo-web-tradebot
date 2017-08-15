@@ -298,7 +298,10 @@
                                     v-on:click="addItem('bot', item.bot, item.assetid, item.price)"
                                     :disabled="item.price > (parseFloat(userInventorySelectedValue.toFixed(2)) - parseFloat(botInventorySelectedValue.toFixed(2)))"
                                 >
-                                    <div class="csgo-item--title">{{ item.data.market_hash_name }}</div>
+                                    <div class="csgo-item--title" v-if="!floats[item.assetid] || !floats[item.assetid].paintwear">{{ item.data.market_hash_name }}</div>
+                                    <div class="csgo-item--title" v-else>{{ item.data.market_hash_name }}<br>
+                                        <div class="csgo-item--float">Float: {{ floats[item.assetid].paintwear }}</div>
+                                    </div>
                                     <div class="csgo-item--st" v-if="item.data.market_hash_name.indexOf('StatTrak') !== -1">ST</div>
                                     <div class="csgo-item--wear" v-if="item.item_wear">{{ item.item_wear }}</div>
                                     <div class="csgo-item--price">${{ item.price }}</div>
@@ -419,6 +422,6 @@
     ga('send', 'pageview');
     </script>
     <!-- Website script -->
-    <script src="/static/js/app.js?v=18"></script>
+    <script src="/static/js/app.js?v=19"></script>
 </body>
 </html>

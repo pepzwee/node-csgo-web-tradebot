@@ -100,6 +100,7 @@ io.on('connection', (socket) => {
         })
         Trade.getInventories(params, (data) => {
             socket.emit('bots inv', data)
+            socket.emit('bots floats', Trade.getFloatValues())
         })
     })
     socket.on('get pricelist', () => {

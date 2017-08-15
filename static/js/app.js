@@ -10,6 +10,7 @@ $(function() {
             disableReload: true,
             disableTrade: true,
             // bot
+            floats: {},
             selectedBot: 'All bots',
             botInventories: {},
             botInventory: [],
@@ -276,6 +277,10 @@ $(function() {
             app.userInventory = data;
         }
     });
+
+    socket.on('bots floats', function(floats) {
+        app.floats = floats;
+    })
 
     socket.on('bots inv', function(items) {
         app.disableReload = false;
