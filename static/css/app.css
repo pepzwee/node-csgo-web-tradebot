@@ -104,18 +104,25 @@ hr {
     z-index: 2;
     text-shadow: 1px 0 0 #fff, -1px 0 0 #fff, 0 1px 0 #fff, 0 -1px 0 #fff, 1px 1px #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff;
 }
+.csgo-item--float {
+    font-size: 11px;
+    color: yellow;
+    line-height: 1em;
+}
 .csgo-item--title {
     visibility: hidden;
     width: 100%;
     bottom: 100%;
     background: rgba(0, 0, 0, .8);
     color: #fff;
-    font-size: 13px;
+    font-size: 12px;
     text-align: center;
     padding: 1px 3px;
     position: absolute;
     z-index: 1;
     pointer-events: none;
+    line-height: 1em;
+    font-weight: bold;
 }
 .csgo-item--title:after {
     content: " ";
