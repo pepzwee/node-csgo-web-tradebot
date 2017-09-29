@@ -78,12 +78,12 @@ io.on('connection', (socket) => {
     socket.emit('site', config.site)
     socket.emit('user', userObject)
     socket.on('get user inv', (steamID64) => {
-        Trade.getInventory(steamID64, '730', '2', (err, data) => {
+        Trade.getInventory(steamID64, config.appID, config.contextID, (err, data) => {
             socket.emit('user inv', { error: err, items: data })
         })
     })
     socket.on('get bot inv', (id) => {
-        Trade.getInventory(config.bots[id].steamID64, '730', '2', (err, data) => {
+        Trade.getInventory(config.bots[id].steamID64, config.appID, config.contextID, (err, data) => {
             socket.emit('bot inv', { error: err, items: data })
         })
     })
@@ -94,8 +94,8 @@ io.on('connection', (socket) => {
             params.push({
                 id: index,
                 steamID64: bot.steamID64,
-                appID: '730',
-                contextID: '2',
+                appID: config.appID,
+                contextID: config.contextID,
             })
         })
         Trade.getInventories(params, (data) => {
@@ -144,15 +144,15 @@ io.on('connection', (socket) => {
                     const offer = Bot.manager.createOffer(offerData.tradelink)
                     offer.addTheirItems(offerData.user.map(assetid => ({
                         assetid,
-                        appid: 730,
-                        contextid: 2,
+                        appid: config.appID,
+                        contextid: config.contextID,
                         amount: 1,
                     })))
                     if (offerData.bot.length) {
                         offer.addMyItems(offerData.bot.map(assetid => ({
                             assetid,
-                            appid: 730,
-                            contextid: 2,
+                            appid: config.appID,
+                            contextid: config.contextID,
                             amount: 1,
                         })))
                     }

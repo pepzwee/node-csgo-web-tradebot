@@ -1,6 +1,8 @@
 'use strict'
 
 module.exports = {
+    appID: 730, // 730 - CS:GO
+    contextID: 2, // ContextID
     bots: {
         bot_1: {
             siteName: 'Bot 1',  // Will be displayed under the "All bots" tab e.g. "Keys Only"
@@ -14,6 +16,7 @@ module.exports = {
     },
     steamApiKey: '',    // Your Steam API key, get it here: https://steamcommunity.com/dev/apikey
     SteamApisKey: '',   // Your SteamApis.com key, get it here: https://steamapis.com
+    SteamApisCompactValue: 'safe_ts.last_30d', // Use safe price calculated from 30 days of data, more info: https://steamapis.com/developers (Market Items - Optional Query Parameters "compact_value")
     site: {
         header: 'CSG0.Trade', // Name/header/title of website. Prefix for  <title></title> (For more: /index.html line: 9) 
         steamGroup: '#',
