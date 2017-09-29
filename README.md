@@ -12,7 +12,7 @@ I also suggest looking through the code to see how it works, and if you spot an 
 
 Live preview:
 
-* [https://csg0.trade](https://csg0.trade)
+* [https://csg0.trade](https://csg0.trade) (Using outdated version)
 
 # API Usage
 
