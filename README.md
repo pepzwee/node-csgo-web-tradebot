@@ -14,6 +14,10 @@ Live preview:
 
 * [https://csg0.trade](https://csg0.trade) (Using outdated version)
 
+# Installation
+
+[https://steamapis.com/projects/node-csgo-web-tradebot](Tutorial: https://steamapis.com/projects/node-csgo-web-tradebot)
+
 # API Usage
 
 ### Prices
