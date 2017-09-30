@@ -16,7 +16,7 @@ Live preview:
 
 # Installation
 
-[https://steamapis.com/projects/node-csgo-web-tradebot](Tutorial: https://steamapis.com/projects/node-csgo-web-tradebot)
+Tutorial: [https://steamapis.com/projects/node-csgo-web-tradebot](https://steamapis.com/projects/node-csgo-web-tradebot)
 
 # API Usage
 
