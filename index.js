@@ -63,6 +63,22 @@ app.get('/logout', (req, res) => {
     req.logout()
     res.redirect('/')
 })
+
+for(var key in config.bots) {
+    if(config.bots.hasOwnProperty(key)) {
+        let BotM = Trade.getBot(config.bots[key].steamID64)
+        BotM.manager.on('sentOfferChanged', (offer, oldState) => {
+                if(offer.state === 3){ 
+                    offer.getReceivedItems(true, (err, items) => {
+                        if(!err) {
+                            Trade.getFloatsFromTrade(offer.manager.steamID, items)
+                        }      
+                    })
+                }
+        });
+    }
+}
+
 // Sockets
 io.use(sharedsession(sessionMiddleware))
 io.on('connection', (socket) => {
