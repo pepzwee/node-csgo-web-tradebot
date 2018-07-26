@@ -10,10 +10,6 @@
 This is a quickly coded website for people who want to see how these kind of websites work. Before you decide to use this script be aware, that this script, may have bugs.
 I also suggest looking through the code to see how it works, and if you spot an error make a pull request.
 
-Live preview:
-
-* [https://csg0.trade](https://csg0.trade) (Using outdated version)
-
 # Installation
 
 Tutorial: [https://steamapis.com/projects/node-csgo-web-tradebot](https://steamapis.com/projects/node-csgo-web-tradebot)
