@@ -216,7 +216,7 @@ $(function() {
     });
 
 
-    var socket = io.connect();
+    var socket = io();
     socket.emit('get pricelist');
     socket.emit('get rates');
 
