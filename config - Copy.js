@@ -6,24 +6,24 @@ module.exports = {
     bots: {
         bot_1: {
             siteName: 'Bot 1', // Will be displayed under the "All bots" tab e.g. "Keys Only"
-            accountName: '', // bot_1 username
-            password: '', // bot_1  password
-            twoFactorCode: '', // shared_secret value
-            identitySecret: '', // identity_secret value
-            steamID64: '', // SteamID64 of bot account can be found here: "https://steamid.io/"
-            personaName: 'CSG0.Trade BOT #1', // Nickname for bot account, will change on restart
+            accountName: 'thehomoerectus', // bot_1 username
+            password: 'JimmyFloopy', // bot_1  password
+            twoFactorCode: 'JIOu04dnsF1FAi3e24xQiQXeImc=', // shared_secret value
+            identitySecret: 'NJcXPvq10quYpdCUE1EmPWZTg5Q=', // identity_secret value
+            steamID64: '76561198225989616', // SteamID64 of bot account can be found here: "https://steamid.io/"
+            personaName: 'Afolabi Ulutunji Onwuatuegwu', // Nickname for bot account, will change on restart
         },
     },
-    steamApiKey: '', // Your Steam API key, get it here: https://steamcommunity.com/dev/apikey
-    SteamApisKey: '', // Your SteamApis.com key, get it here: https://steamapis.com
+    steamApiKey: 'A052F903FF126E9317C9EAC645BC98E2', // Your Steam API key, get it here: https://steamcommunity.com/dev/apikey
+    SteamApisKey: '08fej2-f7tkgTFHqI-MwFpgnT1A', // Your SteamApis.com key, get it here: https://steamapis.com
     SteamApisCompactValue: 'safe_ts.last_30d', // Use safe price calculated from 30 days of data, more info: https://steamapis.com/developers (Market Items - Optional Query Parameters "compact_value")
     site: {
         header: 'CSG0.Trade', // Name/header/title of website. Prefix for  <title></title> (For more: /index.html line: 9)
         steamGroup: '#',
         copyrights: 'Copyright © csg0.trade 2017', // Copyright text
     },
-    domain: 'example.com', // Domain name only, follow the example (no http:// & no www & no /)
-    website: 'http://example.com', // Website URL, follow the example (do not add / at the end)
+    domain: 'localhost', // Domain name only, follow the example (no http:// & no www & no /)
+    website: 'http://localhost', // Website URL, follow the example (do not add / at the end)
     websitePort: 80, // Website PORT, don't change it unless you're using a reverse proxy
     tradeMessage: 'Trade offer from csg0.trade | If you did not request this offer or the offer looks invalid please decline.', // Quite obvious
     rates: {
