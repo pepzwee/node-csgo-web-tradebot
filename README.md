@@ -41,7 +41,7 @@ SteamApis is a paid service. You can get the API key at https://steamapis.com
 
 ### Development
 
-I don't plan on adding any additional features. But feel free to add them yourself and make a pull request.
+I don't plan on adding any additional features. But feel free to make any request or even add your own and make a pull request.
 
 ### Support
 
@@ -51,3 +51,4 @@ Keep in mind this project is free and open-source. Don't expect support to be go
 
 Author: [PEPZ](https://pepzwee.com)
 You can view the [people who have helped with this project here.](https://github.com/pepzwee/node-csgo-web-tradebot/graphs/contributors)
+Maintainer: [iDefineHD](https://github.com/iDefineHD)
