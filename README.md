@@ -51,4 +51,4 @@ Keep in mind this project is free and open-source. Don't expect support to be go
 
 Author: [PEPZ](https://pepzwee.com)
 You can view the [people who have helped with this project here.](https://github.com/pepzwee/node-csgo-web-tradebot/graphs/contributors)
-Maintainer: [iDefineHD](https://github.com/iDefineHD)
+ Dependancy Updater: [iDefineHD](https://github.com/iDefineHD)
