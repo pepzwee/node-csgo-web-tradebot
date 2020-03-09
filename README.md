@@ -1,3 +1,5 @@
+# This project is no longer being maintained or supported.
+
 # Web Based Trading Bot for CS:GO
 
 [![dependencies](https://img.shields.io/david/pepzwee/node-csgo-web-tradebot.svg)](https://github.com/pepzwee/node-csgo-web-tradebot)
