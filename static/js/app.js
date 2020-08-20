@@ -106,7 +106,7 @@ $(function() {
                                 var item = bot.items[y];
                                 item.bot = i;
                                 if(app.priceList[item.data.market_hash_name] <= app.rates.trash) {
-                                    item.price = (app.priceList[item.data.market_hash_name] * app.rates.bot['trash']).toFixed(2);
+                                    item.price = (app.priceList[item.data.market_hash_name] * app.rates.bot[item.item_type.name] * app.rates.bot['trash']).toFixed(2);
                                 } else {
                                     item.price = (app.priceList[item.data.market_hash_name] * app.rates.bot[item.item_type.name]).toFixed(2);
                                 }
@@ -261,7 +261,7 @@ $(function() {
             for(var i in data.items) {
                 var item = data.items[i];
                 if(app.priceList[item.data.market_hash_name] <= app.rates.trash) {
-                    item.price = (app.priceList[item.data.market_hash_name] * app.rates.user['trash']).toFixed(2);
+                    item.price = (app.priceList[item.data.market_hash_name] * app.rates.user[item.item_type.name] * app.rates.user['trash']).toFixed(2);
                 } else {
                     item.price = (app.priceList[item.data.market_hash_name] * app.rates.user[item.item_type.name]).toFixed(2);
                 }
@@ -303,7 +303,7 @@ $(function() {
                 var item = bot.items[y];
                 item.bot = i;
                 if(app.priceList[item.data.market_hash_name] <= app.rates.trash) {
-                    item.price = (app.priceList[item.data.market_hash_name] * app.rates.bot['trash']).toFixed(2);
+                    item.price = (app.priceList[item.data.market_hash_name] * app.rates.bot[item.item_type.name] * app.rates.bot['trash']).toFixed(2);
                 } else {
                     item.price = (app.priceList[item.data.market_hash_name] * app.rates.bot[item.item_type.name]).toFixed(2);
                 }
